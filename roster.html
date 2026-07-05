@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roster — Employee Management System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1B2430;
+    --ink-soft:#2A3444;
+    --paper:#EEF0EC;
+    --card:#FFFFFF;
+    --slate:#5C6672;
+    --slate-light:#8A93A0;
+    --teal:#2D6E6E;
+    --teal-dark:#1F5252;
+    --brass:#C08A3E;
+    --brass-soft:#F3E6CC;
+    --green:#2E7D5B;
+    --green-soft:#DFF0E7;
+    --red:#8B4A45;
+    --red-soft:#F3E1DE;
+    --line:#DBDDD7;
+    --line-strong:#C6C9C1;
+    --radius:10px;
+    --shadow:0 1px 2px rgba(27,36,48,0.06), 0 4px 16px rgba(27,36,48,0.05);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;height:100%;}
+  body{
+    font-family:'IBM Plex Sans', sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+  }
+  .app{display:flex; min-height:100vh;}
+
+  /* ---------- Sidebar ---------- */
+  .sidebar{
+    width:230px;
+    flex-shrink:0;
+    background:var(--ink);
+    color:#E7E9E4;
+    display:flex;
+    flex-direction:column;
+    padding:28px 18px;
+  }
+  .brand{
+    font-family:'Fraunces', serif;
+    font-optical-sizing:auto;
+    font-weight:600;
+    font-size:22px;
+    letter-spacing:0.2px;
+    color:#fff;
+    margin:0 0 2px 4px;
+  }
+  .brand-sub{
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:1.4px;
+    color:var(--slate-light);
+    margin:0 0 32px 4px;
+  }
+  .nav{display:flex; flex-direction:column; gap:2px;}
+  .nav-item{
+    display:flex; align-items:center; gap:10px;
+    padding:10px 12px;
+    border-radius:8px;
+    color:#C7CBC3;
+    font-size:14px;
+    font-weight:500;
+    cursor:pointer;
+    border:none;
+    background:transparent;
+    text-align:left;
+    width:100%;
+    transition:background .15s ease, color .15s ease;
+  }
+  .nav-item:hover{background:var(--ink-soft); color:#fff;}
+  .nav-item.active{background:var(--teal); color:#fff;}
+  .nav-icon{width:16px; text-align:center; font-size:14px;}
+  .sidebar-footer{
+    margin-top:auto;
+    font-size:11px;
+    color:var(--slate-light);
+    padding:0 4px;
+    line-height:1.5;
+  }
+
+  /* ---------- Main ---------- */
+  .main{flex:1; padding:34px 44px; max-width:1180px;}
+  .view{display:none;}
+  .view.active{display:block;}
+  .page-head{display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:26px; gap:16px; flex-wrap:wrap;}
+  .page-title{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:30px;
+    margin:0 0 4px 0;
+    color:var(--ink);
+  }
+  .page-sub{color:var(--slate); font-size:14px; margin:0;}
+  .btn{
+    font-family:inherit;
+    font-size:13.5px;
+    font-weight:600;
+    padding:10px 18px;
+    border-radius:8px;
+    border:1px solid transparent;
+    cursor:pointer;
+    transition:transform .06s ease, background .15s ease;
+  }
+  .btn:active{transform:scale(0.98);}
+  .btn-primary{background:var(--teal); color:#fff;}
+  .btn-primary:hover{background:var(--teal-dark);}
+  .btn-ghost{background:transparent; color:var(--ink); border-color:var(--line-strong);}
+  .btn-ghost:hover{background:#fff;}
+  .btn-danger{background:transparent; color:var(--red); border-color:var(--red-soft);}
+  .btn-danger:hover{background:var(--red-soft);}
+  .btn-sm{padding:6px 12px; font-size:12.5px;}
+
+  /* ---------- Stat cards ---------- */
+  .stat-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:28px;}
+  .stat-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:18px 20px;
+    box-shadow:var(--shadow);
+  }
+  .stat-num{
+    font-family:'Fraunces', serif;
+    font-size:34px;
+    font-weight:600;
+    line-height:1;
+    color:var(--ink);
+  }
+  .stat-label{
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    color:var(--slate);
+    margin-top:8px;
+    font-weight:600;
+  }
+  .stat-card.accent-teal .stat-num{color:var(--teal-dark);}
+  .stat-card.accent-brass .stat-num{color:var(--brass);}
+  .stat-card.accent-red .stat-num{color:var(--red);}
+
+  .panel{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:22px 24px;
+    margin-bottom:22px;
+  }
+  .panel h3{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:17px;
+    margin:0 0 16px 0;
+  }
+  .dept-row{display:flex; align-items:center; gap:12px; margin-bottom:10px; font-size:13.5px;}
+  .dept-row .dept-name{width:120px; flex-shrink:0; color:var(--ink); font-weight:500;}
+  .dept-bar-track{flex:1; background:var(--paper); border-radius:6px; height:10px; overflow:hidden;}
+  .dept-bar-fill{height:100%; background:var(--teal); border-radius:6px;}
+  .dept-count{width:26px; text-align:right; color:var(--slate); font-family:'IBM Plex Mono', monospace; font-size:12px;}
+
+  .recent-item{display:flex; justify-content:space-between; align-items:center; padding:9px 0; border-bottom:1px solid var(--line); font-size:13.5px;}
+  .recent-item:last-child{border-bottom:none;}
+  .recent-name{font-weight:600;}
+  .recent-meta{color:var(--slate); font-size:12px;}
+
+  /* ---------- Toolbar ---------- */
+  .toolbar{display:flex; gap:10px; margin-bottom:18px; flex-wrap:wrap; align-items:center;}
+  .input, .select{
+    font-family:inherit;
+    font-size:13.5px;
+    padding:9px 12px;
+    border-radius:8px;
+    border:1px solid var(--line-strong);
+    background:#fff;
+    color:var(--ink);
+  }
+  .input:focus, .select:focus, textarea:focus{outline:2px solid var(--teal); outline-offset:1px;}
+  .input{flex:1; min-width:180px;}
+  .toolbar .btn{margin-left:auto;}
+
+  /* ---------- Table ---------- */
+  table{width:100%; border-collapse:collapse; background:var(--card); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden;}
+  thead th{
+    text-align:left;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.8px;
+    color:var(--slate);
+    font-weight:600;
+    padding:12px 16px;
+    border-bottom:1px solid var(--line-strong);
+    background:#F7F8F5;
+  }
+  tbody td{padding:13px 16px; font-size:13.5px; border-bottom:1px solid var(--line); vertical-align:middle;}
+  tbody tr:last-child td{border-bottom:none;}
+  tbody tr{cursor:pointer; transition:background .12s ease;}
+  tbody tr:hover{background:#F8F9F6;}
+  .id-tag{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--slate);}
+  .name-cell{display:flex; align-items:center; gap:10px;}
+  .avatar{
+    width:32px; height:32px; border-radius:50%;
+    background:var(--teal); color:#fff;
+    display:flex; align-items:center; justify-content:center;
+    font-size:12px; font-weight:600; flex-shrink:0;
+    font-family:'Fraunces', serif;
+  }
+  .badge{
+    display:inline-block; padding:3px 10px; border-radius:20px;
+    font-size:11.5px; font-weight:600;
+  }
+  .badge-active{background:var(--green-soft); color:var(--green);}
+  .badge-leave{background:var(--brass-soft); color:var(--brass);}
+  .badge-inactive{background:var(--red-soft); color:var(--red);}
+  .row-actions{display:flex; gap:6px; justify-content:flex-end;}
+  .empty-state{padding:60px 20px; text-align:center; color:var(--slate);}
+  .empty-state .big{font-family:'Fraunces', serif; font-size:20px; color:var(--ink); margin-bottom:6px;}
+
+  /* ---------- Modal / drawer ---------- */
+  .overlay{
+    position:fixed; inset:0; background:rgba(27,36,48,0.45);
+    display:none; align-items:stretch; justify-content:flex-end; z-index:50;
+  }
+  .overlay.open{display:flex;}
+  .drawer{
+    width:420px; max-width:92vw; background:var(--card);
+    height:100%; overflow-y:auto; padding:30px 30px 40px;
+    box-shadow:-8px 0 30px rgba(0,0,0,0.15);
+    position:relative;
+    animation:slideIn .18s ease;
+  }
+  @keyframes slideIn{from{transform:translateX(24px); opacity:0;} to{transform:translateX(0); opacity:1;}}
+  .drawer-tab{
+    position:absolute; top:0; left:-14px; width:14px; height:64px; top:30px;
+    border-radius:8px 0 0 8px;
+  }
+  .drawer h2{font-family:'Fraunces', serif; font-size:22px; margin:0 0 4px;}
+  .drawer .close-btn{
+    position:absolute; top:22px; right:22px; background:none; border:none;
+    font-size:20px; cursor:pointer; color:var(--slate); line-height:1;
+  }
+  .field{margin-bottom:16px;}
+  .field label{display:block; font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:0.6px; color:var(--slate); margin-bottom:6px;}
+  .field input, .field select{width:100%;}
+  .field-row{display:flex; gap:12px;}
+  .field-row .field{flex:1;}
+  .drawer-actions{display:flex; gap:10px; margin-top:22px;}
+
+  /* ---------- Detail card (personnel file) ---------- */
+  .file-code{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--slate); letter-spacing:0.5px; margin-bottom:2px;}
+  .detail-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px 18px; margin:20px 0;}
+  .detail-item .dlabel{font-size:11px; text-transform:uppercase; letter-spacing:0.6px; color:var(--slate); font-weight:600; margin-bottom:4px;}
+  .detail-item .dvalue{font-size:14.5px; color:var(--ink); font-weight:500;}
+  .detail-divider{border:none; border-top:1px solid var(--line); margin:22px 0;}
+
+  @media (max-width:880px){
+    .stat-grid{grid-template-columns:repeat(2,1fr);}
+    .main{padding:24px;}
+    .sidebar{width:76px; padding:20px 10px;}
+    .brand,.brand-sub,.nav-item span.label{display:none;}
+    .nav-item{justify-content:center;}
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="brand">Roster</div>
+    <div class="brand-sub">Personnel Records</div>
+    <nav class="nav">
+      <button class="nav-item active" data-view="dashboard"><span class="nav-icon">◆</span><span class="label">Dashboard</span></button>
+      <button class="nav-item" data-view="employees"><span class="nav-icon">☰</span><span class="label">Employees</span></button>
+      <button class="nav-item" data-view="departments"><span class="nav-icon">▤</span><span class="label">Departments</span></button>
+    </nav>
+    <div class="sidebar-footer">
+      <div>Data is stored privately to your account and persists across sessions.</div>
+      <a href="https://dribbble.com/shots/25121521-HR-Management-Dashboard-Design" target="_blank" rel="noopener noreferrer" style="display:inline-block; margin-top:8px; color:var(--brass); text-decoration:none;">Inspired by this dashboard concept</a>
+    </div>
+  </div>
+
+  <!-- Main -->
+  <div class="main">
+
+    <!-- Dashboard -->
+    <div class="view active" id="view-dashboard">
+      <div class="page-head">
+        <div>
+          <h1 class="page-title">Dashboard</h1>
+          <p class="page-sub">A running summary of who's on the roster.</p>
+        </div>
+        <button class="btn btn-primary" onclick="openDrawer()">+ Add Employee</button>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat-card"><div class="stat-num" id="stat-total">0</div><div class="stat-label">Total Employees</div></div>
+        <div class="stat-card accent-teal"><div class="stat-num" id="stat-active">0</div><div class="stat-label">Active</div></div>
+        <div class="stat-card accent-brass"><div class="stat-num" id="stat-leave">0</div><div class="stat-label">On Leave</div></div>
+        <div class="stat-card accent-red"><div class="stat-num" id="stat-inactive">0</div><div class="stat-label">Inactive</div></div>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1.3fr 1fr; gap:22px;">
+        <div class="panel">
+          <h3>Headcount by Department</h3>
+          <div id="dept-breakdown"></div>
+        </div>
+        <div class="panel">
+          <h3>Recently Joined</h3>
+          <div id="recent-hires"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Employees -->
+    <div class="view" id="view-employees">
+      <div class="page-head">
+        <div>
+          <h1 class="page-title">Employees</h1>
+          <p class="page-sub">Search, filter, and manage every record on file.</p>
+        </div>
+        <button class="btn btn-primary" onclick="openDrawer()">+ Add Employee</button>
+      </div>
+
+      <div class="toolbar">
+        <input class="input" id="search-input" placeholder="Search by name, email, or title…" oninput="renderEmployees()">
+        <select class="select" id="filter-dept" onchange="renderEmployees()"><option value="">All Departments</option></select>
+        <select class="select" id="filter-status" onchange="renderEmployees()">
+          <option value="">All Statuses</option>
+          <option value="Active">Active</option>
+          <option value="On Leave">On Leave</option>
+          <option value="Inactive">Inactive</option>
+        </select>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Employee</th><th>Code</th><th>Department</th><th>Title</th><th>Status</th><th>Joined</th><th></th>
+          </tr>
+        </thead>
+        <tbody id="employee-tbody"></tbody>
+      </table>
+      <div id="empty-employees" class="empty-state" style="display:none;">
+        <div class="big">No employees match</div>
+        <div>Try clearing your search or filters.</div>
+      </div>
+    </div>
+
+    <!-- Departments -->
+    <div class="view" id="view-departments">
+      <div class="page-head">
+        <div>
+          <h1 class="page-title">Departments</h1>
+          <p class="page-sub">Every department currently represented on the roster.</p>
+        </div>
+      </div>
+      <div id="departments-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(220px,1fr)); gap:16px;"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Add/Edit Drawer -->
+<div class="overlay" id="form-overlay">
+  <div class="drawer">
+    <button class="close-btn" onclick="closeDrawer()">✕</button>
+    <h2 id="drawer-title">Add Employee</h2>
+    <p class="page-sub" id="drawer-sub" style="margin-bottom:18px;">Fill in the details below.</p>
+    <input type="hidden" id="f-id">
+    <div class="field"><label>Full Name</label><input class="input" id="f-name" placeholder="e.g. Priya Sharma"></div>
+    <div class="field-row">
+      <div class="field"><label>Email</label><input class="input" id="f-email" placeholder="priya@company.com"></div>
+      <div class="field"><label>Phone</label><input class="input" id="f-phone" placeholder="+91 98765 43210"></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Department</label>
+        <select class="select" id="f-dept">
+          <option>Engineering</option><option>Sales</option><option>Marketing</option>
+          <option>Human Resources</option><option>Finance</option><option>Operations</option><option>Support</option>
+        </select>
+      </div>
+      <div class="field"><label>Job Title</label><input class="input" id="f-title" placeholder="e.g. Product Designer"></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Status</label>
+        <select class="select" id="f-status"><option>Active</option><option>On Leave</option><option>Inactive</option></select>
+      </div>
+      <div class="field"><label>Date Joined</label><input class="input" type="date" id="f-joined"></div>
+    </div>
+    <div class="field"><label>Annual Salary (₹)</label><input class="input" type="number" id="f-salary" placeholder="e.g. 1200000"></div>
+    <div class="drawer-actions">
+      <button class="btn btn-primary" onclick="saveEmployee()" style="flex:1;">Save Employee</button>
+      <button class="btn btn-ghost" onclick="closeDrawer()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Detail Drawer -->
+<div class="overlay" id="detail-overlay">
+  <div class="drawer">
+    <div class="drawer-tab" id="detail-tab" style="background:var(--teal);"></div>
+    <button class="close-btn" onclick="closeDetail()">✕</button>
+    <div class="file-code" id="d-code">EMP-0000</div>
+    <h2 id="d-name">—</h2>
+    <p class="page-sub" id="d-title">—</p>
+    <span class="badge" id="d-status">Active</span>
+    <div class="detail-grid">
+      <div class="detail-item"><div class="dlabel">Department</div><div class="dvalue" id="d-dept">—</div></div>
+      <div class="detail-item"><div class="dlabel">Date Joined</div><div class="dvalue" id="d-joined">—</div></div>
+      <div class="detail-item"><div class="dlabel">Email</div><div class="dvalue" id="d-email">—</div></div>
+      <div class="detail-item"><div class="dlabel">Phone</div><div class="dvalue" id="d-phone">—</div></div>
+      <div class="detail-item"><div class="dlabel">Annual Salary</div><div class="dvalue" id="d-salary">—</div></div>
+    </div>
+    <hr class="detail-divider">
+    <div class="drawer-actions">
+      <button class="btn btn-ghost" onclick="editFromDetail()" style="flex:1;">Edit</button>
+      <button class="btn btn-danger" onclick="deleteFromDetail()">Delete</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const DEPT_COLORS = {
+  'Engineering':'#2D6E6E','Sales':'#C08A3E','Marketing':'#8B4A45',
+  'Human Resources':'#4A6FA5','Finance':'#5C6672','Operations':'#3C7A3C','Support':'#7A5C9E'
+};
+let employees = [];
+let editingId = null;
+let currentDetailId = null;
+const STORAGE_KEY = 'roster:employees';
+const SEQ_KEY = 'roster:seq';
+let seq = 1;
+
+const seed = () => ([
+  {id:cryptoId(), code:'EMP-0001', name:'Priya Sharma', email:'priya.sharma@company.com', phone:'+91 98200 11223', department:'Engineering', title:'Senior Software Engineer', status:'Active', joined:'2022-03-14', salary:1800000},
+  {id:cryptoId(), code:'EMP-0002', name:'Rohan Mehta', email:'rohan.mehta@company.com', phone:'+91 99887 66554', department:'Sales', title:'Regional Sales Manager', status:'Active', joined:'2021-07-01', salary:1500000},
+  {id:cryptoId(), code:'EMP-0003', name:'Ananya Iyer', email:'ananya.iyer@company.com', phone:'+91 90123 45678', department:'Human Resources', title:'HR Business Partner', status:'On Leave', joined:'2023-01-09', salary:1100000},
+  {id:cryptoId(), code:'EMP-0004', name:'Karan Malhotra', email:'karan.malhotra@company.com', phone:'+91 91234 56780', department:'Finance', title:'Financial Analyst', status:'Active', joined:'2023-11-20', salary:950000},
+  {id:cryptoId(), code:'EMP-0005', name:'Neha Kulkarni', email:'neha.kulkarni@company.com', phone:'+91 90909 80808', department:'Marketing', title:'Content Strategist', status:'Inactive', joined:'2020-05-18', salary:900000},
+]);
+
+function cryptoId(){ return 'e' + Math.random().toString(36).slice(2,10); }
+function initials(name){ return name.split(' ').filter(Boolean).slice(0,2).map(w=>w[0].toUpperCase()).join(''); }
+function fmtDate(d){ if(!d) return '—'; const dt = new Date(d); return dt.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}); }
+function fmtMoney(n){ if(!n) return '—'; return '₹' + Number(n).toLocaleString('en-IN'); }
+function statusBadgeClass(s){ return s==='Active'?'badge-active': s==='On Leave'?'badge-leave':'badge-inactive'; }
+
+async function readStorage(key, fallback){
+  try{
+    if(window.storage && typeof window.storage.get === 'function'){
+      const res = await window.storage.get(key, false);
+      if(res && typeof res.value !== 'undefined') return res.value;
+    }
+  }catch(e){ /* fallback to localStorage */ }
+  try{
+    return localStorage.getItem(key);
+  }catch(e){
+    return fallback;
+  }
+}
+
+async function writeStorage(key, value){
+  try{
+    if(window.storage && typeof window.storage.set === 'function'){
+      await window.storage.set(key, value, false);
+      return;
+    }
+  }catch(e){ /* fallback to localStorage */ }
+  try{
+    localStorage.setItem(key, value);
+  }catch(e){ console.error('Could not save storage value', e); }
+}
+
+async function loadData(){
+  let storedEmployees = await readStorage(STORAGE_KEY, null);
+  employees = storedEmployees ? JSON.parse(storedEmployees) : null;
+  if(!employees){ employees = seed(); await persist(); }
+  let storedSeq = await readStorage(SEQ_KEY, null);
+  seq = storedSeq ? JSON.parse(storedSeq) : employees.length + 1;
+  renderAll();
+}
+
+async function persist(){
+  try{ await writeStorage(STORAGE_KEY, JSON.stringify(employees)); }
+  catch(e){ console.error('Could not save employees', e); }
+}
+async function persistSeq(){
+  try{ await writeStorage(SEQ_KEY, JSON.stringify(seq)); }
+  catch(e){ console.error('Could not save sequence', e); }
+}
+
+function renderAll(){
+  renderDashboard();
+  populateDeptFilter();
+  renderEmployees();
+  renderDepartmentsView();
+}
+
+/* ---------- Dashboard ---------- */
+function renderDashboard(){
+  document.getElementById('stat-total').textContent = employees.length;
+  document.getElementById('stat-active').textContent = employees.filter(e=>e.status==='Active').length;
+  document.getElementById('stat-leave').textContent = employees.filter(e=>e.status==='On Leave').length;
+  document.getElementById('stat-inactive').textContent = employees.filter(e=>e.status==='Inactive').length;
+
+  const byDept = {};
+  employees.forEach(e => byDept[e.department] = (byDept[e.department]||0)+1);
+  const max = Math.max(1, ...Object.values(byDept));
+  const deptHtml = Object.keys(byDept).sort((a,b)=>byDept[b]-byDept[a]).map(d => `
+    <div class="dept-row">
+      <div class="dept-name">${d}</div>
+      <div class="dept-bar-track"><div class="dept-bar-fill" style="width:${(byDept[d]/max*100)}%; background:${DEPT_COLORS[d]||'var(--teal)'}"></div></div>
+      <div class="dept-count">${byDept[d]}</div>
+    </div>`).join('');
+  document.getElementById('dept-breakdown').innerHTML = deptHtml || '<p style="color:var(--slate); font-size:13px;">No employees yet.</p>';
+
+  const recent = [...employees].sort((a,b)=> new Date(b.joined)-new Date(a.joined)).slice(0,5);
+  document.getElementById('recent-hires').innerHTML = recent.length ? recent.map(e=>`
+    <div class="recent-item">
+      <div><div class="recent-name">${escapeHtml(e.name)}</div><div class="recent-meta">${escapeHtml(e.title)}</div></div>
+      <div class="recent-meta">${fmtDate(e.joined)}</div>
+    </div>`).join('') : '<p style="color:var(--slate); font-size:13px;">No employees yet.</p>';
+}
+
+/* ---------- Employees table ---------- */
+function populateDeptFilter(){
+  const sel = document.getElementById('filter-dept');
+  const current = sel.value;
+  const depts = [...new Set(employees.map(e=>e.department))].sort();
+  sel.innerHTML = '<option value="">All Departments</option>' + depts.map(d=>`<option ${d===current?'selected':''}>${d}</option>`).join('');
+}
+
+function renderEmployees(){
+  const q = (document.getElementById('search-input').value || '').toLowerCase();
+  const deptFilter = document.getElementById('filter-dept').value;
+  const statusFilter = document.getElementById('filter-status').value;
+
+  const filtered = employees.filter(e => {
+    const matchesQ = !q || e.name.toLowerCase().includes(q) || e.email.toLowerCase().includes(q) || e.title.toLowerCase().includes(q);
+    const matchesDept = !deptFilter || e.department === deptFilter;
+    const matchesStatus = !statusFilter || e.status === statusFilter;
+    return matchesQ && matchesDept && matchesStatus;
+  });
+
+  const tbody = document.getElementById('employee-tbody');
+  document.getElementById('empty-employees').style.display = filtered.length ? 'none' : 'block';
+  tbody.innerHTML = filtered.map(e => `
+    <tr onclick="openDetail('${e.id}')">
+      <td>
+        <div class="name-cell">
+          <div class="avatar" style="background:${DEPT_COLORS[e.department]||'var(--teal)'}">${initials(e.name)}</div>
+          <div>
+            <div style="font-weight:600;">${escapeHtml(e.name)}</div>
+            <div style="font-size:12px; color:var(--slate);">${escapeHtml(e.email)}</div>
+          </div>
+        </div>
+      </td>
+      <td class="id-tag">${e.code}</td>
+      <td>${escapeHtml(e.department)}</td>
+      <td>${escapeHtml(e.title)}</td>
+      <td><span class="badge ${statusBadgeClass(e.status)}">${e.status}</span></td>
+      <td>${fmtDate(e.joined)}</td>
+      <td>
+        <div class="row-actions">
+          <button class="btn btn-ghost btn-sm" onclick="event.stopPropagation(); openDrawer('${e.id}')">Edit</button>
+          <button class="btn btn-danger btn-sm" onclick="event.stopPropagation(); removeEmployee('${e.id}')">Delete</button>
+        </div>
+      </td>
+    </tr>
+  `).join('');
+}
+
+/* ---------- Departments view ---------- */
+function renderDepartmentsView(){
+  const byDept = {};
+  employees.forEach(e => { (byDept[e.department] = byDept[e.department]||[]).push(e); });
+  const grid = document.getElementById('departments-grid');
+  const depts = Object.keys(byDept).sort();
+  grid.innerHTML = depts.length ? depts.map(d => `
+    <div class="panel" style="border-top:3px solid ${DEPT_COLORS[d]||'var(--teal)'}; margin-bottom:0;">
+      <h3 style="margin-bottom:4px;">${d}</h3>
+      <div style="color:var(--slate); font-size:13px; margin-bottom:12px;">${byDept[d].length} ${byDept[d].length===1?'person':'people'}</div>
+      ${byDept[d].slice(0,4).map(e=>`<div style="font-size:13px; padding:4px 0;">${escapeHtml(e.name)} <span style="color:var(--slate);">— ${escapeHtml(e.title)}</span></div>`).join('')}
+      ${byDept[d].length>4 ? `<div style="font-size:12px; color:var(--slate); margin-top:6px;">+${byDept[d].length-4} more</div>` : ''}
+    </div>
+  `).join('') : '<p style="color:var(--slate);">No departments yet — add an employee to get started.</p>';
+}
+
+/* ---------- Add / Edit drawer ---------- */
+function openDrawer(id){
+  editingId = id || null;
+  const overlay = document.getElementById('form-overlay');
+  if(id){
+    const e = employees.find(x=>x.id===id);
+    document.getElementById('drawer-title').textContent = 'Edit Employee';
+    document.getElementById('drawer-sub').textContent = 'Update ' + e.name + '\u2019s record.';
+    document.getElementById('f-id').value = e.id;
+    document.getElementById('f-name').value = e.name;
+    document.getElementById('f-email').value = e.email;
+    document.getElementById('f-phone').value = e.phone;
+    document.getElementById('f-dept').value = e.department;
+    document.getElementById('f-title').value = e.title;
+    document.getElementById('f-status').value = e.status;
+    document.getElementById('f-joined').value = e.joined;
+    document.getElementById('f-salary').value = e.salary;
+  } else {
+    document.getElementById('drawer-title').textContent = 'Add Employee';
+    document.getElementById('drawer-sub').textContent = 'Create a new personnel record.';
+    ['f-id','f-name','f-email','f-phone','f-title','f-salary'].forEach(id=>document.getElementById(id).value='');
+    document.getElementById('f-dept').value = 'Engineering';
+    document.getElementById('f-status').value = 'Active';
+    document.getElementById('f-joined').value = new Date().toISOString().slice(0,10);
+  }
+  overlay.classList.add('open');
+}
+function closeDrawer(){ document.getElementById('form-overlay').classList.remove('open'); }
+
+async function saveEmployee(){
+  const name = document.getElementById('f-name').value.trim();
+  const email = document.getElementById('f-email').value.trim();
+  if(!name || !email){ alert('Name and email are required.'); return; }
+  const id = document.getElementById('f-id').value;
+  const data = {
+    name, email,
+    phone: document.getElementById('f-phone').value.trim(),
+    department: document.getElementById('f-dept').value,
+    title: document.getElementById('f-title').value.trim() || 'Team Member',
+    status: document.getElementById('f-status').value,
+    joined: document.getElementById('f-joined').value,
+    salary: Number(document.getElementById('f-salary').value) || 0,
+  };
+  if(id){
+    const idx = employees.findIndex(e=>e.id===id);
+    employees[idx] = {...employees[idx], ...data};
+  } else {
+    const code = 'EMP-' + String(seq).padStart(4,'0');
+    seq++;
+    await persistSeq();
+    employees.push({id:cryptoId(), code, ...data});
+  }
+  await persist();
+  closeDrawer();
+  renderAll();
+}
+
+async function removeEmployee(id){
+  if(!confirm('Delete this employee record? This cannot be undone.')) return;
+  employees = employees.filter(e=>e.id!==id);
+  await persist();
+  renderAll();
+}
+
+/* ---------- Detail drawer ---------- */
+function openDetail(id){
+  const e = employees.find(x=>x.id===id);
+  if(!e) return;
+  currentDetailId = id;
+  document.getElementById('d-code').textContent = e.code;
+  document.getElementById('d-name').textContent = e.name;
+  document.getElementById('d-title').textContent = e.title;
+  const badge = document.getElementById('d-status');
+  badge.textContent = e.status;
+  badge.className = 'badge ' + statusBadgeClass(e.status);
+  document.getElementById('d-dept').textContent = e.department;
+  document.getElementById('d-joined').textContent = fmtDate(e.joined);
+  document.getElementById('d-email').textContent = e.email;
+  document.getElementById('d-phone').textContent = e.phone || '—';
+  document.getElementById('d-salary').textContent = fmtMoney(e.salary);
+  document.getElementById('detail-tab').style.background = DEPT_COLORS[e.department] || 'var(--teal)';
+  document.getElementById('detail-overlay').classList.add('open');
+}
+function closeDetail(){ document.getElementById('detail-overlay').classList.remove('open'); currentDetailId=null; }
+function editFromDetail(){ const id = currentDetailId; closeDetail(); openDrawer(id); }
+async function deleteFromDetail(){ const id = currentDetailId; closeDetail(); await removeEmployee(id); }
+
+/* ---------- Nav ---------- */
+document.querySelectorAll('.nav-item').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.nav-item').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+    document.getElementById('view-' + btn.dataset.view).classList.add('active');
+  });
+});
+
+function escapeHtml(str){
+  return String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+
+['form-overlay','detail-overlay'].forEach(id=>{
+  document.getElementById(id).addEventListener('click', (ev)=>{ if(ev.target.id===id){ id==='form-overlay'?closeDrawer():closeDetail(); } });
+});
+
+loadData();
+</script>
+</body>
+</html>
