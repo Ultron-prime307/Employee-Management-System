@@ -355,6 +355,287 @@
   .detail-divider{border:none;border-top:1px solid var(--border);margin:20px 0;}
   .file-code{font-family:ui-monospace,monospace;font-size:12px;color:var(--muted);margin-bottom:4px;}
 
+  /* Additional Premium Views Styling */
+  .grid-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .grid-header h2 {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0;
+  }
+  /* Projects Board */
+  .proj-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+    margin-top: 16px;
+  }
+  .proj-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    border-top: 4px solid var(--blue);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: transform 0.15s, background 0.15s;
+  }
+  .proj-card:hover {
+    transform: translateY(-2px);
+    background: var(--card-hover);
+  }
+  .proj-card h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .proj-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .proj-budget {
+    font-weight: 600;
+    color: var(--text);
+  }
+  .proj-deadline {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+  }
+  .proj-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 6px;
+  }
+
+  /* Schedule List */
+  .sched-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .sched-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .sched-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .sched-info h4 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .sched-info p {
+    margin: 0;
+    font-size: 12.5px;
+    color: var(--muted);
+  }
+  .sched-time {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  /* Sticky Notes */
+  .notes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+    margin-top: 16px;
+  }
+  .note-card {
+    background: #252429;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 18px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .note-card.announcement { border-left: 4px solid var(--orange); }
+  .note-card.task { border-left: 4px solid var(--blue); }
+  .note-card.general { border-left: 4px solid var(--green); }
+  .note-card h4 {
+    margin: 0;
+    font-size: 14.5px;
+    font-weight: 600;
+  }
+  .note-content {
+    font-size: 13px;
+    color: #dedede;
+    line-height: 1.5;
+    flex: 1;
+  }
+  .note-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    color: var(--muted);
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding-top: 8px;
+  }
+
+  /* Hiring Kanban Board */
+  .kanban-board {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 16px;
+    align-items: start;
+  }
+  .kanban-col {
+    background: var(--sidebar);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 12px;
+    min-height: 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .kanban-col h3 {
+    margin: 0 0 6px 0;
+    font-size: 13.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--muted);
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 4px;
+  }
+  .kanban-col h3 span {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 2px 6px;
+    font-size: 11px;
+  }
+  .candidate-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: background 0.15s;
+  }
+  .candidate-card:hover {
+    background: var(--card-hover);
+  }
+  .candidate-name {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0;
+  }
+  .candidate-job {
+    font-size: 11.5px;
+    color: var(--muted);
+  }
+  .candidate-contacts {
+    font-size: 11px;
+    color: var(--muted-2);
+  }
+  .candidate-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 6px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding-top: 8px;
+  }
+
+  /* Job Listings */
+  .jobs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+    margin-top: 16px;
+  }
+  .job-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: background 0.15s;
+  }
+  .job-card:hover { background: var(--card-hover); }
+  .job-card h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .job-badge {
+    align-self: flex-start;
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-weight: 600;
+    background: var(--blue-soft);
+    color: var(--cyan);
+  }
+  .job-details {
+    font-size: 12.5px;
+    color: var(--muted);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  /* Reports View */
+  .report-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+  }
+  .report-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .report-info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+  }
+  .report-info h4 { margin: 0; font-size: 15px; font-weight: 600; }
+  .report-info p { margin: 0; font-size: 13px; color: var(--muted); }
+  .report-info .meta { font-size: 11.5px; color: var(--muted-2); }
+
   @media(max-width:1100px){
     .stat-grid{grid-template-columns:repeat(2,1fr);}
     .charts-row{grid-template-columns:1fr;}
@@ -367,6 +648,7 @@
     .stat-grid{grid-template-columns:1fr;}
   }
 </style>
+
 </head>
 <body>
 <div class="app">
@@ -549,18 +831,59 @@
         </div>
       </div>
 
-      <!-- Departments / Projects -->
+      <!-- Projects (formerly Departments) -->
       <div class="view" id="view-departments">
-        <p class="page-sub">Every department currently represented on the roster.</p>
-        <div class="dept-grid" id="departments-grid"></div>
+        <div class="grid-header">
+          <p class="page-sub">Manage active company projects, leads, and budgets.</p>
+          <button class="btn btn-primary btn-sm" onclick="openProjectDrawer()">+ Add Project</button>
+        </div>
+        <div class="proj-grid" id="projects-grid"></div>
       </div>
 
-      <!-- Placeholder views -->
-      <div class="view" id="view-schedule"><div class="placeholder-view"><svg width="48" height="48" fill="none" stroke="var(--muted)" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><h2>Schedule</h2><p>Shift planning and calendar views will appear here in a future update.</p></div></div>
-      <div class="view" id="view-report"><div class="placeholder-view"><svg width="48" height="48" fill="none" stroke="var(--muted)" stroke-width="1.5" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg><h2>Reports</h2><p>Export headcount, payroll, and performance reports from this section.</p></div></div>
-      <div class="view" id="view-notes"><div class="placeholder-view"><svg width="48" height="48" fill="none" stroke="var(--muted)" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg><h2>Notes</h2><p>Team notes and internal memos will be managed here.</p></div></div>
-      <div class="view" id="view-job"><div class="placeholder-view"><svg width="48" height="48" fill="none" stroke="var(--muted)" stroke-width="1.5" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg><h2>Job Listings</h2><p>Open roles and job descriptions will be listed here.</p></div></div>
-      <div class="view" id="view-hiring"><div class="placeholder-view"><svg width="48" height="48" fill="none" stroke="var(--muted)" stroke-width="1.5" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg><h2>Hiring Pipeline</h2><p>Track candidates and interview stages in the hiring pipeline.</p></div></div>
+      <!-- Schedule -->
+      <div class="view" id="view-schedule">
+        <div class="grid-header">
+          <p class="page-sub">Manage employee shifts and calendar schedules.</p>
+          <button class="btn btn-primary btn-sm" onclick="openScheduleDrawer()">+ Add Shift</button>
+        </div>
+        <div class="sched-list" id="schedule-list"></div>
+      </div>
+
+      <!-- Reports -->
+      <div class="view" id="view-report">
+        <div class="grid-header">
+          <p class="page-sub">Headcount, spending, and operations reports.</p>
+          <button class="btn btn-primary btn-sm" onclick="openReportDrawer()">+ Create Report</button>
+        </div>
+        <div class="report-list" id="reports-list"></div>
+      </div>
+
+      <!-- Notes -->
+      <div class="view" id="view-notes">
+        <div class="grid-header">
+          <p class="page-sub">Internal memos and team announcements.</p>
+          <button class="btn btn-primary btn-sm" onclick="openNoteDrawer()">+ Add Note</button>
+        </div>
+        <div class="notes-grid" id="notes-grid"></div>
+      </div>
+
+      <!-- Job Listings -->
+      <div class="view" id="view-job">
+        <div class="grid-header">
+          <p class="page-sub">Active job postings and requirements.</p>
+          <button class="btn btn-primary btn-sm" onclick="openJobDrawer()">+ Post Job</button>
+        </div>
+        <div class="jobs-grid" id="jobs-grid"></div>
+      </div>
+
+      <!-- Hiring Pipeline -->
+      <div class="view" id="view-hiring">
+        <div class="grid-header">
+          <p class="page-sub">Track active candidate interviews and recruitment stages.</p>
+          <button class="btn btn-primary btn-sm" onclick="openHiringDrawer()">+ Add Candidate</button>
+        </div>
+        <div class="kanban-board" id="hiring-board"></div>
+      </div>
 
     </div>
   </main>
@@ -631,7 +954,189 @@
       <button class="btn btn-danger" onclick="deleteFromDetail()">Delete</button>
     </div>
   </div>
+<!-- Project Drawer -->
+<div class="overlay" id="project-form-overlay" style="position:fixed;">
+  <div class="drawer" style="position:relative;">
+    <button class="close-btn" onclick="closeProjectDrawer()">✕</button>
+    <h2 id="proj-drawer-title">Add Project</h2>
+    <p class="page-sub">Fill in the project details.</p>
+    <input type="hidden" id="proj-id">
+    <div class="field"><label>Project Name</label><input class="input" id="proj-name" placeholder="e.g. Acme Web App Redesign"></div>
+    <div class="field-row">
+      <div class="field"><label>Department</label>
+        <select class="select" id="proj-dept">
+          <option>Engineering</option><option>Design</option><option>Sales</option><option>Marketing</option>
+          <option>Human Resources</option><option>Finance</option><option>Operations</option><option>Support</option>
+        </select>
+      </div>
+      <div class="field"><label>Project Lead</label><input class="input" id="proj-lead" placeholder="e.g. Cody Fisher"></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Status</label>
+        <select class="select" id="proj-status">
+          <option>Planning</option><option>In Progress</option><option>Completed</option><option>On Hold</option>
+        </select>
+      </div>
+      <div class="field"><label>Budget (₹)</label><input class="input" type="number" id="proj-budget" placeholder="500000"></div>
+    </div>
+    <div class="field"><label>Deadline</label><input class="input" type="date" id="proj-deadline"></div>
+    <div class="drawer-actions">
+      <button class="btn btn-primary" onclick="saveProject()" style="flex:1;">Save Project</button>
+      <button class="btn btn-ghost" onclick="closeProjectDrawer()">Cancel</button>
+    </div>
+  </div>
 </div>
+
+<!-- Schedule Drawer -->
+<div class="overlay" id="schedule-form-overlay" style="position:fixed;">
+  <div class="drawer" style="position:relative;">
+    <button class="close-btn" onclick="closeScheduleDrawer()">✕</button>
+    <h2>Schedule Shift</h2>
+    <p class="page-sub">Assign a new shift schedule.</p>
+    <input type="hidden" id="sched-id">
+    <div class="field"><label>Employee</label>
+      <select class="select" id="sched-emp-select"></select>
+    </div>
+    <div class="field"><label>Shift Date</label><input class="input" type="date" id="sched-date"></div>
+    <div class="field-row">
+      <div class="field"><label>Start Time</label><input class="input" type="time" id="sched-start" value="09:00"></div>
+      <div class="field"><label>End Time</label><input class="input" type="time" id="sched-end" value="17:00"></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Role / Title</label><input class="input" id="sched-role" placeholder="e.g. Web Designer"></div>
+      <div class="field"><label>Status</label>
+        <select class="select" id="sched-status">
+          <option>Scheduled</option><option>Completed</option><option>Absent</option>
+        </select>
+      </div>
+    </div>
+    <div class="drawer-actions">
+      <button class="btn btn-primary" onclick="saveSchedule()" style="flex:1;">Save Shift</button>
+      <button class="btn btn-ghost" onclick="closeScheduleDrawer()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Report Drawer -->
+<div class="overlay" id="report-form-overlay" style="position:fixed;">
+  <div class="drawer" style="position:relative;">
+    <button class="close-btn" onclick="closeReportDrawer()">✕</button>
+    <h2>Create Report</h2>
+    <p class="page-sub">Enter report metadata.</p>
+    <input type="hidden" id="rep-id">
+    <div class="field"><label>Report Title</label><input class="input" id="rep-title" placeholder="e.g. Headcount Summary"></div>
+    <div class="field-row">
+      <div class="field"><label>Type</label>
+        <select class="select" id="rep-type">
+          <option>Headcount</option><option>Financial</option><option>Performance</option>
+        </select>
+      </div>
+      <div class="field"><label>Generated By</label><input class="input" id="rep-author" placeholder="e.g. Ananya Iyer"></div>
+    </div>
+    <div class="field"><label>Description</label><textarea class="input" id="rep-desc" rows="3" placeholder="Description of report contents..." style="font-family:inherit; resize:vertical;"></textarea></div>
+    <div class="drawer-actions">
+      <button class="btn btn-primary" onclick="saveReport()" style="flex:1;">Create Report</button>
+      <button class="btn btn-ghost" onclick="closeReportDrawer()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Note Drawer -->
+<div class="overlay" id="note-form-overlay" style="position:fixed;">
+  <div class="drawer" style="position:relative;">
+    <button class="close-btn" onclick="closeNoteDrawer()">✕</button>
+    <h2>Add Team Note</h2>
+    <p class="page-sub">Post a note to the board.</p>
+    <input type="hidden" id="note-id">
+    <div class="field"><label>Title</label><input class="input" id="note-title" placeholder="e.g. Server Maintenance"></div>
+    <div class="field-row">
+      <div class="field"><label>Category</label>
+        <select class="select" id="note-category">
+          <option>General</option><option>Announcement</option><option>Task</option>
+        </select>
+      </div>
+      <div class="field"><label>Author</label><input class="input" id="note-author" placeholder="e.g. Priya Sharma"></div>
+    </div>
+    <div class="field"><label>Content</label><textarea class="input" id="note-content" rows="4" placeholder="Type notes here..." style="font-family:inherit; resize:vertical;"></textarea></div>
+    <div class="drawer-actions">
+      <button class="btn btn-primary" onclick="saveNote()" style="flex:1;">Post Note</button>
+      <button class="btn btn-ghost" onclick="closeNoteDrawer()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Job Drawer -->
+<div class="overlay" id="job-form-overlay" style="position:fixed;">
+  <div class="drawer" style="position:relative;">
+    <button class="close-btn" onclick="closeJobDrawer()">✕</button>
+    <h2>Post New Job</h2>
+    <p class="page-sub">Add a job opening listing.</p>
+    <input type="hidden" id="job-id">
+    <div class="field"><label>Job Title</label><input class="input" id="job-title" placeholder="e.g. Senior Frontend Engineer"></div>
+    <div class="field-row">
+      <div class="field"><label>Department</label>
+        <select class="select" id="job-dept">
+          <option>Engineering</option><option>Design</option><option>Sales</option><option>Marketing</option>
+          <option>Human Resources</option><option>Finance</option><option>Operations</option><option>Support</option>
+        </select>
+      </div>
+      <div class="field"><label>Location</label><input class="input" id="job-loc" placeholder="e.g. Remote (US/Canada)"></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Type</label>
+        <select class="select" id="job-type">
+          <option>Full-time</option><option>Remote</option><option>Contract</option><option>Part-time</option>
+        </select>
+      </div>
+      <div class="field"><label>Salary Range</label><input class="input" id="job-salary" placeholder="e.g. $100k - $120k"></div>
+    </div>
+    <div class="field"><label>Status</label>
+      <select class="select" id="job-status">
+        <option>Open</option><option>Closed</option>
+      </select>
+    </div>
+    <div class="drawer-actions">
+      <button class="btn btn-primary" onclick="saveJob()" style="flex:1;">Post Job</button>
+      <button class="btn btn-ghost" onclick="closeJobDrawer()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Hiring Drawer -->
+<div class="overlay" id="hiring-form-overlay" style="position:fixed;">
+  <div class="drawer" style="position:relative;">
+    <button class="close-btn" onclick="closeHiringDrawer()">✕</button>
+    <h2>Add Candidate</h2>
+    <p class="page-sub">Add a candidate to the recruitment pipeline.</p>
+    <input type="hidden" id="hire-id">
+    <div class="field"><label>Candidate Name</label><input class="input" id="hire-name" placeholder="e.g. Bob Jones"></div>
+    <div class="field-row">
+      <div class="field"><label>Email</label><input class="input" id="hire-email" placeholder="bob@example.com"></div>
+      <div class="field"><label>Phone</label><input class="input" id="hire-phone" placeholder="+1 555 1234"></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Job Title</label><input class="input" id="hire-job" placeholder="e.g. Senior Frontend Engineer"></div>
+      <div class="field"><label>Stage</label>
+        <select class="select" id="hire-stage">
+          <option>Applied</option><option>Screening</option><option>Interview</option><option>Offered</option>
+        </select>
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Status</label>
+        <select class="select" id="hire-status">
+          <option>Active</option><option>Rejected</option><option>Hired</option>
+        </select>
+      </div>
+      <div class="field"><label>Interview Date</label><input class="input" type="date" id="hire-interview"></div>
+    </div>
+    <div class="drawer-actions">
+      <button class="btn btn-primary" onclick="saveHiring()" style="flex:1;">Add Candidate</button>
+      <button class="btn btn-ghost" onclick="closeHiringDrawer()">Cancel</button>
+    </div>
+  </div>
+</div>
+
 
 <script>
 const DEPT_COLORS = {
@@ -1072,10 +1577,576 @@ function closeDetail(){ document.getElementById('detail-overlay').classList.remo
 function editFromDetail(){ closeDetail(); openDrawer(currentDetailId); }
 async function deleteFromDetail(){ closeDetail(); await removeEmployee(currentDetailId); }
 
+// Dynamic storage variables for new views
+let projects = [], schedule = [], reports = [], notes = [], jobs = [], hiringCandidates = [];
+let editingProjectId = null, editingScheduleId = null, editingReportId = null, editingNoteId = null, editingJobId = null, editingHiringId = null;
+
+// Projects view handlers
+async function loadAndRenderProjects() {
+  try {
+    if (backendAvailable) {
+      projects = await apiRequest('/projects');
+    } else {
+      let stored = await readStorage('roster:projects', null);
+      projects = stored ? JSON.parse(stored) : [];
+    }
+  } catch(e) { console.error(e); }
+  renderProjects();
+}
+
+function renderProjects() {
+  const grid = document.getElementById('projects-grid');
+  grid.innerHTML = projects.map(p => `
+    <div class="proj-card" style="border-top-color:${DEPT_COLORS[p.department] || 'var(--blue)'}">
+      <h3>${escapeHtml(p.name)}</h3>
+      <div class="proj-meta">
+        <div><strong>Dept:</strong> ${escapeHtml(p.department)}</div>
+        <div><strong>Lead:</strong> ${escapeHtml(p.lead)}</div>
+        <div class="proj-budget"><strong>Budget:</strong> ₹${Number(p.budget).toLocaleString('en-IN')}</div>
+      </div>
+      <div class="proj-deadline">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        <span>Deadline: ${fmtDate(p.deadline)}</span>
+      </div>
+      <div class="proj-actions">
+        <button class="btn btn-ghost btn-sm" onclick="openProjectDrawer('${p.id}')">Edit</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteProject('${p.id}')">Delete</button>
+      </div>
+    </div>
+  `).join('') || '<p style="color:var(--muted);">No projects active.</p>';
+}
+
+function openProjectDrawer(id = null) {
+  editingProjectId = id;
+  const overlay = document.getElementById('project-form-overlay');
+  if (id) {
+    const p = projects.find(x => x.id === id);
+    document.getElementById('proj-drawer-title').textContent = 'Edit Project';
+    document.getElementById('proj-id').value = p.id;
+    document.getElementById('proj-name').value = p.name;
+    document.getElementById('proj-dept').value = p.department;
+    document.getElementById('proj-lead').value = p.lead;
+    document.getElementById('proj-status').value = p.status;
+    document.getElementById('proj-budget').value = p.budget;
+    document.getElementById('proj-deadline').value = p.deadline;
+  } else {
+    document.getElementById('proj-drawer-title').textContent = 'Add Project';
+    document.getElementById('proj-id').value = '';
+    document.getElementById('proj-name').value = '';
+    document.getElementById('proj-dept').value = 'Design';
+    document.getElementById('proj-lead').value = '';
+    document.getElementById('proj-status').value = 'In Progress';
+    document.getElementById('proj-budget').value = '';
+    document.getElementById('proj-deadline').value = '';
+  }
+  overlay.classList.add('open');
+}
+
+function closeProjectDrawer() {
+  document.getElementById('project-form-overlay').classList.remove('open');
+}
+
+async function saveProject() {
+  const name = document.getElementById('proj-name').value.trim();
+  const lead = document.getElementById('proj-lead').value.trim();
+  const deadline = document.getElementById('proj-deadline').value;
+  if (!name || !lead || !deadline) { alert('Name, Lead, and Deadline are required.'); return; }
+  const id = document.getElementById('proj-id').value;
+  const data = {
+    name, lead, deadline,
+    department: document.getElementById('proj-dept').value,
+    status: document.getElementById('proj-status').value,
+    budget: Number(document.getElementById('proj-budget').value) || 0,
+  };
+  try {
+    if (backendAvailable) {
+      if (id) {
+        await apiRequest('/projects/' + encodeURIComponent(id), { method: 'PUT', body: JSON.stringify(data) });
+      } else {
+        await apiRequest('/projects', { method: 'POST', body: JSON.stringify(data) });
+      }
+    } else {
+      if (id) {
+        const idx = projects.findIndex(x => x.id === id);
+        projects[idx] = { ...projects[idx], ...data };
+      } else {
+        projects.push({ id: cryptoId(), ...data });
+      }
+      await writeStorage('roster:projects', JSON.stringify(projects));
+    }
+  } catch(err) {
+    alert(err.message || 'Could not save project.');
+    return;
+  }
+  closeProjectDrawer();
+  loadAndRenderProjects();
+}
+
+async function deleteProject(id) {
+  if (!confirm('Delete this project?')) return;
+  try {
+    if (backendAvailable) {
+      await apiRequest('/projects/' + encodeURIComponent(id), { method: 'DELETE' });
+    } else {
+      projects = projects.filter(x => x.id !== id);
+      await writeStorage('roster:projects', JSON.stringify(projects));
+    }
+  } catch(e) { alert('Failed to delete project.'); }
+  loadAndRenderProjects();
+}
+
+// Schedule View Handlers
+async function loadAndRenderSchedule() {
+  try {
+    if (backendAvailable) {
+      schedule = await apiRequest('/schedule');
+    } else {
+      let stored = await readStorage('roster:schedule', null);
+      schedule = stored ? JSON.parse(stored) : [];
+    }
+  } catch(e) { console.error(e); }
+  renderSchedule();
+}
+
+function renderSchedule() {
+  const list = document.getElementById('schedule-list');
+  list.innerHTML = schedule.map(s => `
+    <div class="sched-card">
+      <div class="sched-info">
+        <h4>${escapeHtml(s.employeeName)}</h4>
+        <p>${escapeHtml(s.role)} — ${fmtDate(s.shiftDate)}</p>
+      </div>
+      <div class="sched-time">
+        Time: ${escapeHtml(s.startTime)} - ${escapeHtml(s.endTime)}
+      </div>
+      <span class="status-pill status-fulltime">${escapeHtml(s.status)}</span>
+      <button class="btn btn-danger btn-sm" onclick="deleteSchedule('${s.id}')">Delete</button>
+    </div>
+  `).join('') || '<p style="color:var(--muted);">No scheduled shifts.</p>';
+}
+
+function openScheduleDrawer() {
+  const select = document.getElementById('sched-emp-select');
+  select.innerHTML = employees.map(e => `<option value="${e.id}">${escapeHtml(e.name)} (${escapeHtml(e.code)})</option>`).join('') || '<option value="">No Employees available</option>';
+  document.getElementById('sched-id').value = '';
+  document.getElementById('sched-date').value = new Date().toISOString().slice(0, 10);
+  document.getElementById('sched-role').value = '';
+  document.getElementById('sched-status').value = 'Scheduled';
+  document.getElementById('schedule-form-overlay').classList.add('open');
+}
+
+function closeScheduleDrawer() {
+  document.getElementById('schedule-form-overlay').classList.remove('open');
+}
+
+async function saveSchedule() {
+  const empSelect = document.getElementById('sched-emp-select');
+  const employeeId = empSelect.value;
+  const employeeName = empSelect.options[empSelect.selectedIndex]?.text.split(' (')[0] || '';
+  const shiftDate = document.getElementById('sched-date').value;
+  const startTime = document.getElementById('sched-start').value;
+  const endTime = document.getElementById('sched-end').value;
+  
+  if (!employeeId || !shiftDate || !startTime || !endTime) { alert('All fields are required.'); return; }
+  
+  const data = {
+    employeeId, employeeName, shiftDate, startTime, endTime,
+    role: document.getElementById('sched-role').value.trim() || 'Team Member',
+    status: document.getElementById('sched-status').value
+  };
+
+  try {
+    if (backendAvailable) {
+      await apiRequest('/schedule', { method: 'POST', body: JSON.stringify(data) });
+    } else {
+      schedule.push({ id: cryptoId(), ...data });
+      await writeStorage('roster:schedule', JSON.stringify(schedule));
+    }
+  } catch(e) { alert('Failed to save shift.'); return; }
+  
+  closeScheduleDrawer();
+  loadAndRenderSchedule();
+}
+
+async function deleteSchedule(id) {
+  if (!confirm('Delete this shift?')) return;
+  try {
+    if (backendAvailable) {
+      await apiRequest('/schedule/' + encodeURIComponent(id), { method: 'DELETE' });
+    } else {
+      schedule = schedule.filter(x => x.id !== id);
+      await writeStorage('roster:schedule', JSON.stringify(schedule));
+    }
+  } catch(e) { alert('Failed to delete shift.'); }
+  loadAndRenderSchedule();
+}
+
+// Reports View Handlers
+async function loadAndRenderReports() {
+  try {
+    if (backendAvailable) {
+      reports = await apiRequest('/reports');
+    } else {
+      let stored = await readStorage('roster:reports', null);
+      reports = stored ? JSON.parse(stored) : [];
+    }
+  } catch(e) { console.error(e); }
+  renderReports();
+}
+
+function renderReports() {
+  const list = document.getElementById('reports-list');
+  list.innerHTML = reports.map(r => `
+    <div class="report-card">
+      <div class="report-info">
+        <h4>${escapeHtml(r.title)}</h4>
+        <p>${escapeHtml(r.description || 'No description provided.')}</p>
+        <div class="meta">Type: ${escapeHtml(r.type)} | Created By: ${escapeHtml(r.generatedBy)} on ${fmtDate(r.dateCreated)}</div>
+      </div>
+      <button class="btn btn-danger btn-sm" onclick="deleteReport('${r.id}')">Delete</button>
+    </div>
+  `).join('') || '<p style="color:var(--muted);">No reports created yet.</p>';
+}
+
+function openReportDrawer() {
+  document.getElementById('rep-id').value = '';
+  document.getElementById('rep-title').value = '';
+  document.getElementById('rep-type').value = 'Headcount';
+  document.getElementById('rep-author').value = 'System Admin';
+  document.getElementById('rep-desc').value = '';
+  document.getElementById('report-form-overlay').classList.add('open');
+}
+
+function closeReportDrawer() {
+  document.getElementById('report-form-overlay').classList.remove('open');
+}
+
+async function saveReport() {
+  const title = document.getElementById('rep-title').value.trim();
+  const type = document.getElementById('rep-type').value;
+  if (!title) { alert('Report Title is required.'); return; }
+  
+  const data = {
+    title, type,
+    generatedBy: document.getElementById('rep-author').value.trim() || 'System',
+    dateCreated: new Date().toISOString().slice(0,10),
+    description: document.getElementById('rep-desc').value.trim()
+  };
+
+  try {
+    if (backendAvailable) {
+      await apiRequest('/reports', { method: 'POST', body: JSON.stringify(data) });
+    } else {
+      reports.push({ id: cryptoId(), ...data });
+      await writeStorage('roster:reports', JSON.stringify(reports));
+    }
+  } catch(e) { alert('Failed to save report.'); return; }
+
+  closeReportDrawer();
+  loadAndRenderReports();
+}
+
+async function deleteReport(id) {
+  if (!confirm('Delete this report?')) return;
+  try {
+    if (backendAvailable) {
+      await apiRequest('/reports/' + encodeURIComponent(id), { method: 'DELETE' });
+    } else {
+      reports = reports.filter(x => x.id !== id);
+      await writeStorage('roster:reports', JSON.stringify(reports));
+    }
+  } catch(e) { alert('Failed to delete report.'); }
+  loadAndRenderReports();
+}
+
+// Notes View Handlers
+async function loadAndRenderNotes() {
+  try {
+    if (backendAvailable) {
+      notes = await apiRequest('/notes');
+    } else {
+      let stored = await readStorage('roster:notes', null);
+      notes = stored ? JSON.parse(stored) : [];
+    }
+  } catch(e) { console.error(e); }
+  renderNotes();
+}
+
+function renderNotes() {
+  const grid = document.getElementById('notes-grid');
+  grid.innerHTML = notes.map(n => `
+    <div class="note-card ${n.category.toLowerCase()}">
+      <h4>${escapeHtml(n.title)}</h4>
+      <div class="note-content">${escapeHtml(n.content)}</div>
+      <div class="note-footer">
+        <span>By ${escapeHtml(n.author)}</span>
+        <span>${fmtDate(n.dateCreated)}</span>
+      </div>
+      <button class="btn btn-danger btn-sm" onclick="deleteNote('${n.id}')" style="margin-top: 10px; align-self: flex-start;">Delete</button>
+    </div>
+  `).join('') || '<p style="color:var(--muted);">No notes posted.</p>';
+}
+
+function openNoteDrawer() {
+  document.getElementById('note-id').value = '';
+  document.getElementById('note-title').value = '';
+  document.getElementById('note-category').value = 'General';
+  document.getElementById('note-author').value = 'System Admin';
+  document.getElementById('note-content').value = '';
+  document.getElementById('note-form-overlay').classList.add('open');
+}
+
+function closeNoteDrawer() {
+  document.getElementById('note-form-overlay').classList.remove('open');
+}
+
+async function saveNote() {
+  const title = document.getElementById('note-title').value.trim();
+  const content = document.getElementById('note-content').value.trim();
+  if (!title || !content) { alert('Title and Content are required.'); return; }
+
+  const data = {
+    title, content,
+    category: document.getElementById('note-category').value,
+    author: document.getElementById('note-author').value.trim() || 'Anonymous',
+    dateCreated: new Date().toISOString().slice(0, 10)
+  };
+
+  try {
+    if (backendAvailable) {
+      await apiRequest('/notes', { method: 'POST', body: JSON.stringify(data) });
+    } else {
+      notes.push({ id: cryptoId(), ...data });
+      await writeStorage('roster:notes', JSON.stringify(notes));
+    }
+  } catch(e) { alert('Failed to save note.'); return; }
+
+  closeNoteDrawer();
+  loadAndRenderNotes();
+}
+
+async function deleteNote(id) {
+  if (!confirm('Delete this note?')) return;
+  try {
+    if (backendAvailable) {
+      await apiRequest('/notes/' + encodeURIComponent(id), { method: 'DELETE' });
+    } else {
+      notes = notes.filter(x => x.id !== id);
+      await writeStorage('roster:notes', JSON.stringify(notes));
+    }
+  } catch(e) { alert('Failed to delete note.'); }
+  loadAndRenderNotes();
+}
+
+// Jobs View Handlers
+async function loadAndRenderJobs() {
+  try {
+    if (backendAvailable) {
+      jobs = await apiRequest('/jobs');
+    } else {
+      let stored = await readStorage('roster:jobs', null);
+      jobs = stored ? JSON.parse(stored) : [];
+    }
+  } catch(e) { console.error(e); }
+  renderJobs();
+}
+
+function renderJobs() {
+  const grid = document.getElementById('jobs-grid');
+  grid.innerHTML = jobs.map(j => `
+    <div class="job-card">
+      <h3>${escapeHtml(j.title)}</h3>
+      <div class="job-badge">${escapeHtml(j.type)}</div>
+      <div class="job-details">
+        <div><strong>Dept:</strong> ${escapeHtml(j.department)}</div>
+        <div><strong>Location:</strong> ${escapeHtml(j.location)}</div>
+        <div><strong>Salary:</strong> ${escapeHtml(j.salaryRange || 'Not specified')}</div>
+        <div><strong>Status:</strong> ${escapeHtml(j.status)}</div>
+      </div>
+      <button class="btn btn-danger btn-sm" onclick="deleteJob('${j.id}')" style="margin-top: 10px; align-self: flex-start;">Delete</button>
+    </div>
+  `).join('') || '<p style="color:var(--muted);">No jobs posted.</p>';
+}
+
+function openJobDrawer() {
+  document.getElementById('job-id').value = '';
+  document.getElementById('job-title').value = '';
+  document.getElementById('job-dept').value = 'Design';
+  document.getElementById('job-loc').value = 'Remote';
+  document.getElementById('job-type').value = 'Full-time';
+  document.getElementById('job-salary').value = '';
+  document.getElementById('job-status').value = 'Open';
+  document.getElementById('job-form-overlay').classList.add('open');
+}
+
+function closeJobDrawer() {
+  document.getElementById('job-form-overlay').classList.remove('open');
+}
+
+async function saveJob() {
+  const title = document.getElementById('job-title').value.trim();
+  const department = document.getElementById('job-dept').value;
+  if (!title) { alert('Job Title is required.'); return; }
+
+  const data = {
+    title, department,
+    location: document.getElementById('job-loc').value.trim() || 'Remote',
+    type: document.getElementById('job-type').value,
+    salaryRange: document.getElementById('job-salary').value.trim(),
+    status: document.getElementById('job-status').value,
+    datePosted: new Date().toISOString().slice(0,10)
+  };
+
+  try {
+    if (backendAvailable) {
+      await apiRequest('/jobs', { method: 'POST', body: JSON.stringify(data) });
+    } else {
+      jobs.push({ id: cryptoId(), ...data });
+      await writeStorage('roster:jobs', JSON.stringify(jobs));
+    }
+  } catch(e) { alert('Failed to save job.'); return; }
+
+  closeJobDrawer();
+  loadAndRenderJobs();
+}
+
+async function deleteJob(id) {
+  if (!confirm('Delete this job listing?')) return;
+  try {
+    if (backendAvailable) {
+      await apiRequest('/jobs/' + encodeURIComponent(id), { method: 'DELETE' });
+    } else {
+      jobs = jobs.filter(x => x.id !== id);
+      await writeStorage('roster:jobs', JSON.stringify(jobs));
+    }
+  } catch(e) { alert('Failed to delete job.'); }
+  loadAndRenderJobs();
+}
+
+// Hiring View Handlers (Kanban Board)
+async function loadAndRenderHiring() {
+  try {
+    if (backendAvailable) {
+      hiringCandidates = await apiRequest('/hiring');
+    } else {
+      let stored = await readStorage('roster:hiring', null);
+      hiringCandidates = stored ? JSON.parse(stored) : [];
+    }
+  } catch(e) { console.error(e); }
+  renderHiring();
+}
+
+function renderHiring() {
+  const board = document.getElementById('hiring-board');
+  const stages = ['Applied', 'Screening', 'Interview', 'Offered'];
+  
+  board.innerHTML = stages.map(stage => {
+    const list = hiringCandidates.filter(c => c.stage === stage);
+    return `
+      <div class="kanban-col">
+        <h3>${stage} <span>${list.length}</span></h3>
+        ${list.map(c => `
+          <div class="candidate-card">
+            <h4 class="candidate-name">${escapeHtml(c.candidateName)}</h4>
+            <div class="candidate-job">${escapeHtml(c.jobTitle)}</div>
+            <div class="candidate-contacts">
+              <div>Email: ${escapeHtml(c.email)}</div>
+              ${c.phone ? `<div>Phone: ${escapeHtml(c.phone)}</div>` : ''}
+              ${c.interviewDate ? `<div style="color:var(--orange);">Interview: ${fmtDate(c.interviewDate)}</div>` : ''}
+            </div>
+            <div class="candidate-actions">
+              <div>
+                ${stage !== 'Applied' ? `<button class="btn btn-ghost btn-sm" onclick="moveCandidate('${c.id}', '${stages[stages.indexOf(stage)-1]}')" style="padding: 3px 6px;"><</button>` : ''}
+                ${stage !== 'Offered' ? `<button class="btn btn-ghost btn-sm" onclick="moveCandidate('${c.id}', '${stages[stages.indexOf(stage)+1]}')" style="padding: 3px 6px;">></button>` : ''}
+              </div>
+              <button class="btn btn-danger btn-sm" onclick="deleteHiring('${c.id}')" style="padding: 3px 8px;">Reject</button>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }).join('');
+}
+
+function openHiringDrawer() {
+  document.getElementById('hire-id').value = '';
+  document.getElementById('hire-name').value = '';
+  document.getElementById('hire-email').value = '';
+  document.getElementById('hire-phone').value = '';
+  document.getElementById('hire-job').value = '';
+  document.getElementById('hire-stage').value = 'Applied';
+  document.getElementById('hire-status').value = 'Active';
+  document.getElementById('hire-interview').value = '';
+  document.getElementById('hiring-form-overlay').classList.add('open');
+}
+
+function closeHiringDrawer() {
+  document.getElementById('hiring-form-overlay').classList.remove('open');
+}
+
+async function saveHiring() {
+  const name = document.getElementById('hire-name').value.trim();
+  const email = document.getElementById('hire-email').value.trim();
+  const jobTitle = document.getElementById('hire-job').value.trim();
+  
+  if (!name || !email || !jobTitle) { alert('Candidate Name, Email, and Target Job are required.'); return; }
+
+  const data = {
+    candidateName: name, email, jobTitle,
+    phone: document.getElementById('hire-phone').value.trim(),
+    stage: document.getElementById('hire-stage').value,
+    status: document.getElementById('hire-status').value,
+    interviewDate: document.getElementById('hire-interview').value
+  };
+
+  try {
+    if (backendAvailable) {
+      await apiRequest('/hiring', { method: 'POST', body: JSON.stringify(data) });
+    } else {
+      hiringCandidates.push({ id: cryptoId(), ...data });
+      await writeStorage('roster:hiring', JSON.stringify(hiringCandidates));
+    }
+  } catch(e) { alert('Failed to save candidate.'); return; }
+
+  closeHiringDrawer();
+  loadAndRenderHiring();
+}
+
+async function moveCandidate(id, newStage) {
+  const c = hiringCandidates.find(x => x.id === id);
+  if (!c) return;
+  
+  const data = { ...c, stage: newStage };
+  try {
+    if (backendAvailable) {
+      await apiRequest('/hiring/' + encodeURIComponent(id), { method: 'PUT', body: JSON.stringify(data) });
+    } else {
+      const idx = hiringCandidates.findIndex(x => x.id === id);
+      hiringCandidates[idx] = data;
+      await writeStorage('roster:hiring', JSON.stringify(hiringCandidates));
+    }
+  } catch(e) { alert('Failed to update stage.'); return; }
+  loadAndRenderHiring();
+}
+
+async function deleteHiring(id) {
+  if (!confirm('Reject and delete this candidate?')) return;
+  try {
+    if (backendAvailable) {
+      await apiRequest('/hiring/' + encodeURIComponent(id), { method: 'DELETE' });
+    } else {
+      hiringCandidates = hiringCandidates.filter(x => x.id !== id);
+      await writeStorage('roster:hiring', JSON.stringify(hiringCandidates));
+    }
+  } catch(e) { alert('Failed to reject candidate.'); }
+  loadAndRenderHiring();
+}
+
 const VIEW_TITLES = {
   dashboard:'Dashboard', schedule:'Schedule', employees:'Employee',
   departments:'Projects', report:'Report', notes:'Notes', job:'Job', hiring:'Hiring'
 };
+
 function navigateTo(view){
   document.querySelectorAll('.nav-item[data-view]').forEach(b=>{
     b.classList.toggle('active', b.dataset.view === view);
@@ -1083,6 +2154,16 @@ function navigateTo(view){
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
   document.getElementById('view-' + view).classList.add('active');
   document.getElementById('view-heading').textContent = VIEW_TITLES[view] || 'Dashboard';
+  
+  // Lazy load and render data based on view
+  if (view === 'dashboard') { renderDashboard(); }
+  else if (view === 'employees') { renderEmployees(); }
+  else if (view === 'departments') { loadAndRenderProjects(); }
+  else if (view === 'schedule') { loadAndRenderSchedule(); }
+  else if (view === 'report') { loadAndRenderReports(); }
+  else if (view === 'notes') { loadAndRenderNotes(); }
+  else if (view === 'job') { loadAndRenderJobs(); }
+  else if (view === 'hiring') { loadAndRenderHiring(); }
 }
 
 document.querySelectorAll('.nav-item[data-view]').forEach(btn=>{
@@ -1104,9 +2185,18 @@ function escapeHtml(str){
   return String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 }
 
-['form-overlay','detail-overlay'].forEach(id=>{
+['form-overlay','detail-overlay','project-form-overlay','schedule-form-overlay','report-form-overlay','note-form-overlay','job-form-overlay','hiring-form-overlay'].forEach(id=>{
   document.getElementById(id).addEventListener('click', ev=>{
-    if(ev.target.id===id) id==='form-overlay'?closeDrawer():closeDetail();
+    if(ev.target.id===id) {
+      if (id==='form-overlay') closeDrawer();
+      else if (id==='detail-overlay') closeDetail();
+      else if (id==='project-form-overlay') closeProjectDrawer();
+      else if (id==='schedule-form-overlay') closeScheduleDrawer();
+      else if (id==='report-form-overlay') closeReportDrawer();
+      else if (id==='note-form-overlay') closeNoteDrawer();
+      else if (id==='job-form-overlay') closeJobDrawer();
+      else if (id==='hiring-form-overlay') closeHiringDrawer();
+    }
   });
 });
 

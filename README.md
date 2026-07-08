@@ -32,11 +32,13 @@ The app includes an Express backend with employee CRUD routes:
 
 By default, data is stored in `data/employees.json`. To use MongoDB, copy `.env.example` to `.env` and set `MONGODB_URI`.
 
+To use Google Sheets, copy `.env.example` to `.env`, set `GOOGLE_SHEETS_SPREADSHEET_ID`, and add service account credentials with either `GOOGLE_APPLICATION_CREDENTIALS` or `GOOGLE_SERVICE_ACCOUNT_EMAIL` plus `GOOGLE_PRIVATE_KEY`. Share the spreadsheet with the service account email so the backend can read and write employee rows. Google Sheets takes priority when `GOOGLE_SHEETS_SPREADSHEET_ID` is set.
+
 ## Tech
 
 - Single HTML frontend (HTML + CSS + JavaScript)
 - Express REST API
-- JSON file storage by default, optional MongoDB through Mongoose
+- JSON file storage by default, optional MongoDB through Mongoose or Google Sheets through the Sheets API
 - SVG charts rendered in vanilla JS
 
 See [Roster-Documentation.md](Roster-Documentation.md) for full field reference and usage guide.

@@ -8,18 +8,22 @@ const { connectMongo } = require("./backend/db");
 const app = express();
 const root = __dirname;
 const port = Number(process.env.PORT || 8080);
+const useGoogleSheets = Boolean(process.env.GOOGLE_SHEETS_SPREADSHEET_ID);
 
 app.use(cors());
 app.use(express.json());
 
 async function start() {
-  const usingMongo = await connectMongo();
-  const employees = usingMongo
-    ? require("./backend/repositories/mongoEmployeeRepository")
-    : require("./backend/repositories/fileEmployeeRepository");
+  const usingMongo = useGoogleSheets ? false : await connectMongo();
+  const employees = useGoogleSheets
+    ? require("./backend/repositories/googleSheetsEmployeeRepository")
+    : usingMongo
+      ? require("./backend/repositories/mongoEmployeeRepository")
+      : require("./backend/repositories/fileEmployeeRepository");
+  const storage = useGoogleSheets ? "google-sheets" : usingMongo ? "mongodb" : "file";
 
   app.get("/api/health", (_req, res) => {
-    res.json({ ok: true, storage: usingMongo ? "mongodb" : "file" });
+    res.json({ ok: true, storage });
   });
 
   app.get("/api/employees", async (_req, res, next) => {
@@ -69,6 +73,46 @@ async function start() {
     }
   });
 
+  // Helper to register REST endpoints for new entities
+  function registerCrudRoutes(prefix, repo) {
+    app.get(`/api/${prefix}`, async (_req, res, next) => {
+      try { res.json(await repo.list()); } catch (error) { next(error); }
+    });
+    app.get(`/api/${prefix}/:id`, async (req, res, next) => {
+      try {
+        const item = await repo.get(req.params.id);
+        if (!item) return res.status(404).json({ error: "Item not found." });
+        res.json(item);
+      } catch (error) { next(error); }
+    });
+    app.post(`/api/${prefix}`, async (req, res, next) => {
+      try { res.status(201).json(await repo.create(req.body)); } catch (error) { next(error); }
+    });
+    app.put(`/api/${prefix}/:id`, async (req, res, next) => {
+      try {
+        const item = await repo.update(req.params.id, req.body);
+        if (!item) return res.status(404).json({ error: "Item not found." });
+        res.json(item);
+      } catch (error) { next(error); }
+    });
+    app.delete(`/api/${prefix}/:id`, async (req, res, next) => {
+      try {
+        const removed = await repo.remove(req.params.id);
+        if (!removed) return res.status(404).json({ error: "Item not found." });
+        res.status(204).end();
+      } catch (error) { next(error); }
+    });
+  }
+
+  // Register routes for new entities
+  registerCrudRoutes("schedule", require("./backend/repositories/scheduleRepository"));
+  registerCrudRoutes("projects", require("./backend/repositories/projectRepository"));
+  registerCrudRoutes("reports", require("./backend/repositories/reportRepository"));
+  registerCrudRoutes("notes", require("./backend/repositories/noteRepository"));
+  registerCrudRoutes("jobs", require("./backend/repositories/jobRepository"));
+  registerCrudRoutes("hiring", require("./backend/repositories/hiringRepository"));
+
+
   app.get("/", (_req, res) => {
     res.sendFile(path.join(root, "roster.html"));
   });
@@ -86,7 +130,7 @@ async function start() {
 
   app.listen(port, "127.0.0.1", () => {
     console.log(`http://127.0.0.1:${port}/`);
-    console.log(`API storage: ${usingMongo ? "mongodb" : "file"}`);
+    console.log(`API storage: ${storage}`);
   });
 }
 
