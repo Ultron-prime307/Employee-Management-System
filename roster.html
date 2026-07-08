@@ -645,6 +645,8 @@ const AVATAR_GRADIENTS = [
 let employees = [], editingId = null, currentDetailId = null;
 const STORAGE_KEY = 'roster:employees', SEQ_KEY = 'roster:seq';
 let seq = 1;
+const API_BASE = '/api';
+let backendAvailable = false;
 
 const seed = () => ([
   {id:cryptoId(),code:'#EP5659',name:'Cody Fisher',email:'cody.fisher@company.com',phone:'+1 555 0101',gender:'Male',department:'Design',title:'Web Designer',status:'Full-time',joined:'2023-06-12',salary:1200000},
@@ -687,10 +689,30 @@ async function writeStorage(key, value){
   try{ localStorage.setItem(key,value); }catch(e){ console.error(e); }
 }
 
+async function apiRequest(path, options = {}){
+  const res = await fetch(API_BASE + path, {
+    headers: {'Content-Type':'application/json', ...(options.headers || {})},
+    ...options
+  });
+  if(!res.ok){
+    let message = 'Request failed.';
+    try{ message = (await res.json()).error || message; }catch(e){}
+    throw new Error(message);
+  }
+  return res.status === 204 ? null : res.json();
+}
+
 async function loadData(){
-  let stored = await readStorage(STORAGE_KEY, null);
-  employees = stored ? JSON.parse(stored).map(migrateEmployee) : null;
-  if(!employees){ employees = seed(); await persist(); }
+  try{
+    employees = (await apiRequest('/employees')).map(migrateEmployee);
+    backendAvailable = true;
+  }catch(error){
+    console.warn('Backend unavailable; using browser storage.', error);
+    backendAvailable = false;
+    let stored = await readStorage(STORAGE_KEY, null);
+    employees = stored ? JSON.parse(stored).map(migrateEmployee) : null;
+    if(!employees){ employees = seed(); await persist(); }
+  }
   let storedSeq = await readStorage(SEQ_KEY, null);
   seq = storedSeq ? JSON.parse(storedSeq) : employees.length + 1;
   updateDateRange();
@@ -698,9 +720,11 @@ async function loadData(){
 }
 
 async function persist(){
+  if(backendAvailable) return;
   await writeStorage(STORAGE_KEY, JSON.stringify(employees));
 }
 async function persistSeq(){
+  if(backendAvailable) return;
   await writeStorage(SEQ_KEY, JSON.stringify(seq));
 }
 
@@ -978,23 +1002,51 @@ async function saveEmployee(){
     joined: document.getElementById('f-joined').value,
     salary: Number(document.getElementById('f-salary').value) || 0,
   };
-  if(id){
-    const idx = employees.findIndex(e=>e.id===id);
-    employees[idx] = {...employees[idx], ...data};
-  } else {
-    const code = '#EP' + String(seq).padStart(4,'0');
-    seq++; await persistSeq();
-    employees.push({id:cryptoId(), code, ...data});
+  try{
+    if(backendAvailable){
+      if(id){
+        const updated = await apiRequest('/employees/' + encodeURIComponent(id), {
+          method: 'PUT',
+          body: JSON.stringify(data)
+        });
+        const idx = employees.findIndex(e=>e.id===id);
+        employees[idx] = migrateEmployee(updated);
+      } else {
+        const created = await apiRequest('/employees', {
+          method: 'POST',
+          body: JSON.stringify(data)
+        });
+        employees.push(migrateEmployee(created));
+      }
+    } else if(id){
+      const idx = employees.findIndex(e=>e.id===id);
+      employees[idx] = {...employees[idx], ...data};
+    } else {
+      const code = '#EP' + String(seq).padStart(4,'0');
+      seq++; await persistSeq();
+      employees.push({id:cryptoId(), code, ...data});
+    }
+    await persist();
+  }catch(error){
+    alert(error.message || 'Could not save employee.');
+    return;
   }
-  await persist();
   closeDrawer();
   renderAll();
 }
 
 async function removeEmployee(id){
   if(!confirm('Delete this employee record? This cannot be undone.')) return;
-  employees = employees.filter(e=>e.id!==id);
-  await persist();
+  try{
+    if(backendAvailable){
+      await apiRequest('/employees/' + encodeURIComponent(id), {method:'DELETE'});
+    }
+    employees = employees.filter(e=>e.id!==id);
+    await persist();
+  }catch(error){
+    alert(error.message || 'Could not delete employee.');
+    return;
+  }
   renderAll();
 }
 
