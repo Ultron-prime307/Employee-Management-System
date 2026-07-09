@@ -1451,9 +1451,11 @@ function renderEmployees(){
 }
 
 function renderDepartmentsView(){
+  const grid = document.getElementById('departments-grid');
+  if (!grid) return;
   const byDept = {};
   employees.forEach(e => { (byDept[e.department] = byDept[e.department]||[]).push(e); });
-  document.getElementById('departments-grid').innerHTML = Object.keys(byDept).sort().map(d => `
+  grid.innerHTML = Object.keys(byDept).sort().map(d => `
     <div class="dept-card" style="border-top-color:${DEPT_COLORS[d]||'var(--blue)'}">
       <h3>${escapeHtml(d)}</h3>
       <div class="dept-meta">${byDept[d].length} ${byDept[d].length===1?'person':'people'}</div>
