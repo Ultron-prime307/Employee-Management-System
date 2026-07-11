@@ -15,11 +15,7 @@ app.use(express.json());
 
 async function start() {
   const usingMongo = useGoogleSheets ? false : await connectMongo();
-  const employees = useGoogleSheets
-    ? require("./backend/repositories/googleSheetsEmployeeRepository")
-    : usingMongo
-      ? require("./backend/repositories/mongoEmployeeRepository")
-      : require("./backend/repositories/fileEmployeeRepository");
+  const employees = require("./backend/repositories/employeeRepository");
   const storage = useGoogleSheets ? "google-sheets" : usingMongo ? "mongodb" : "file";
 
   app.get("/api/health", (_req, res) => {
