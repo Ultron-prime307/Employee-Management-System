@@ -1680,8 +1680,8 @@ function openDetail(id){
   document.getElementById('detail-overlay').classList.add('open');
 }
 function closeDetail(){ document.getElementById('detail-overlay').classList.remove('open'); currentDetailId=null; }
-function editFromDetail(){ closeDetail(); openDrawer(currentDetailId); }
-async function deleteFromDetail(){ closeDetail(); await removeEmployee(currentDetailId); }
+function editFromDetail(){ const id = currentDetailId; closeDetail(); openDrawer(id); }
+async function deleteFromDetail(){ const id = currentDetailId; closeDetail(); await removeEmployee(id); }
 
 // Dynamic storage variables for new views
 let projects = [], schedule = [], reports = [], notes = [], jobs = [], hiringCandidates = [];
