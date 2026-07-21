@@ -698,8 +698,8 @@
       </button>
     </nav>
     <div class="sidebar-footer">
-      <button class="nav-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01"/></svg><span>Help Center</span></button>
-      <button class="nav-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>Feedback</span></button>
+      <button class="nav-item" onclick="openHelp()"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01"/></svg><span>Help Center</span></button>
+      <button class="nav-item" onclick="openFeedback()"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>Feedback</span></button>
     </div>
   </aside>
 
@@ -707,14 +707,14 @@
     <header class="topbar">
       <h1 class="page-title" id="view-heading">Dashboard</h1>
       <div class="topbar-actions">
-        <button class="icon-btn" title="Search">
+        <button class="icon-btn" title="Search" onclick="focusGlobalSearch()">
           <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
         </button>
-        <button class="icon-btn" title="Notifications">
+        <button class="icon-btn" title="Notifications" onclick="openNotifications()">
           <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"/></svg>
           <span class="dot"></span>
         </button>
-        <div class="date-pill">
+        <div class="date-pill" onclick="openCalendar()" style="cursor:pointer;">
           <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
           <span id="date-range">01 Nov – 2025</span>
         </div>
@@ -954,6 +954,7 @@
       <button class="btn btn-danger" onclick="deleteFromDetail()">Delete</button>
     </div>
   </div>
+</div>
 <!-- Project Drawer -->
 <div class="overlay" id="project-form-overlay" style="position:fixed;">
   <div class="drawer" style="position:relative;">
@@ -1133,6 +1134,109 @@
     <div class="drawer-actions">
       <button class="btn btn-primary" onclick="saveHiring()" style="flex:1;">Add Candidate</button>
       <button class="btn btn-ghost" onclick="closeHiringDrawer()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Help Center Drawer -->
+<div class="overlay" id="help-overlay" style="position:fixed;">
+  <div class="drawer" style="position:relative;">
+    <button class="close-btn" onclick="closeHelp()">✕</button>
+    <h2>Help Center</h2>
+    <p class="page-sub" style="margin-bottom:18px;">How can we help you today?</p>
+    <div style="display:flex; flex-direction:column; gap:16px;">
+      <div class="panel" style="padding:14px; border:1px solid var(--border);">
+        <h4 style="margin:0 0 6px 0; color:var(--blue); font-size:14px; font-weight:600;">Keyboard Shortcuts</h4>
+        <p style="margin:0; font-size:12.5px; color:var(--muted); line-height:1.4;">
+          Press <kbd style="background:var(--border); padding:2px 6px; border-radius:4px; font-size:10px; color:var(--text);">Ctrl+K</kbd> or <kbd style="background:var(--border); padding:2px 6px; border-radius:4px; font-size:10px; color:var(--text);">⌘K</kbd> anywhere to focus the global search.
+        </p>
+      </div>
+      <div class="panel" style="padding:14px; border:1px solid var(--border);">
+        <h4 style="margin:0 0 6px 0; color:var(--green); font-size:14px; font-weight:600;">Storage Modes</h4>
+        <p style="margin:0; font-size:12.5px; color:var(--muted); line-height:1.4;">
+          This system runs on local JSON storage by default, but can be configured to use MongoDB or Google Sheets by renaming `.env.example` to `.env` and setting the connection variables.
+        </p>
+      </div>
+      <div class="panel" style="padding:14px; border:1px solid var(--border);">
+        <h4 style="margin:0 0 6px 0; color:var(--orange); font-size:14px; font-weight:600;">Frequently Asked Questions</h4>
+        <details style="margin-top:8px; font-size:12.5px; cursor:pointer;" open>
+          <summary style="color:var(--text); font-weight:600; margin-bottom:4px;">How to edit records?</summary>
+          <p style="margin:0 0 8px 0; color:var(--muted); padding-left:12px;">Click any employee row in the roster or dashboard to open the details drawer, then click "Edit".</p>
+        </details>
+        <details style="font-size:12.5px; cursor:pointer;">
+          <summary style="color:var(--text); font-weight:600; margin-bottom:4px;">How to schedule shifts?</summary>
+          <p style="margin:0; color:var(--muted); padding-left:12px;">Navigate to the Schedule view, and click "+ Add Shift" to schedule employee shifts.</p>
+        </details>
+      </div>
+      <div class="panel" style="padding:14px; border:1px solid var(--border);">
+        <h4 style="margin:0 0 6px 0; color:var(--cyan); font-size:14px; font-weight:600;">Contact Support</h4>
+        <p style="margin:0; font-size:12.5px; color:var(--muted); line-height:1.4;">
+          Email: support@brightly.com<br>
+          Phone: +1 800 555-0199
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Feedback Drawer -->
+<div class="overlay" id="feedback-overlay" style="position:fixed;">
+  <div class="drawer" style="position:relative;">
+    <button class="close-btn" onclick="closeFeedback()">✕</button>
+    <h2>Send Feedback</h2>
+    <p class="page-sub" style="margin-bottom:18px;">We value your opinion and suggestions.</p>
+    <div class="field"><label>Your Name</label><input class="input" id="fb-name" placeholder="e.g. Cody Fisher"></div>
+    <div class="field"><label>Email Address</label><input class="input" id="fb-email" placeholder="cody@company.com"></div>
+    <div class="field"><label>Category</label>
+      <select class="select" id="fb-category" style="width:100%;">
+        <option>General Feedback</option>
+        <option>Bug Report</option>
+        <option>Feature Request</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div class="field"><label>Comments</label><textarea class="input" id="fb-message" rows="4" placeholder="Tell us how we can improve..." style="font-family:inherit; resize:vertical; width:100%;"></textarea></div>
+    <div class="drawer-actions">
+      <button class="btn btn-primary" onclick="submitFeedback()" style="flex:1;">Submit Feedback</button>
+      <button class="btn btn-ghost" onclick="closeFeedback()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Notifications Drawer -->
+<div class="overlay" id="notifications-overlay" style="position:fixed;">
+  <div class="drawer" style="position:relative;">
+    <button class="close-btn" onclick="closeNotifications()">✕</button>
+    <h2>Notifications</h2>
+    <p class="page-sub" style="margin-bottom:18px;">Recent system activities and alerts.</p>
+    <div style="display:flex; flex-direction:column; gap:12px;" id="notifications-list">
+      <div class="panel" style="padding:14px; border-left:4px solid var(--blue); background:var(--card-hover);">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:4px;">
+          <h4 style="margin:0; font-size:13.5px; font-weight:600;">Shift Assigned</h4>
+          <span style="font-size:10px; color:var(--muted);">10m ago</span>
+        </div>
+        <p style="margin:0; font-size:12.5px; color:var(--muted); line-height:1.4;">
+          Priya Sharma was scheduled for the Morning shift on 24 Jul.
+        </p>
+      </div>
+      <div class="panel" style="padding:14px; border-left:4px solid var(--orange); background:var(--card-hover);">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:4px;">
+          <h4 style="margin:0; font-size:13.5px; font-weight:600;">New Candidate</h4>
+          <span style="font-size:10px; color:var(--muted);">1h ago</span>
+        </div>
+        <p style="margin:0; font-size:12.5px; color:var(--muted); line-height:1.4;">
+          Bob Jones applied for Senior Frontend Engineer.
+        </p>
+      </div>
+      <div class="panel" style="padding:14px; border-left:4px solid var(--green); background:var(--card-hover);">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:4px;">
+          <h4 style="margin:0; font-size:13.5px; font-weight:600;">Project Completed</h4>
+          <span style="font-size:10px; color:var(--muted);">4h ago</span>
+        </div>
+        <p style="margin:0; font-size:12.5px; color:var(--muted); line-height:1.4;">
+          Acme Web App Redesign was marked as Completed.
+        </p>
+      </div>
     </div>
   </div>
 </div>
@@ -2144,6 +2248,54 @@ async function deleteHiring(id) {
   loadAndRenderHiring();
 }
 
+function openHelp() {
+  document.getElementById('help-overlay').classList.add('open');
+}
+function closeHelp() {
+  document.getElementById('help-overlay').classList.remove('open');
+}
+
+function openFeedback() {
+  document.getElementById('fb-name').value = '';
+  document.getElementById('fb-email').value = '';
+  document.getElementById('fb-category').value = 'General Feedback';
+  document.getElementById('fb-message').value = '';
+  document.getElementById('feedback-overlay').classList.add('open');
+}
+function closeFeedback() {
+  document.getElementById('feedback-overlay').classList.remove('open');
+}
+function submitFeedback() {
+  const name = document.getElementById('fb-name').value.trim();
+  const email = document.getElementById('fb-email').value.trim();
+  const message = document.getElementById('fb-message').value.trim();
+  if (!name || !email || !message) {
+    alert('Please fill in your name, email, and comments.');
+    return;
+  }
+  alert('Thank you for your feedback, ' + name + '! We have received it.');
+  closeFeedback();
+}
+
+function openNotifications() {
+  document.getElementById('notifications-overlay').classList.add('open');
+}
+function closeNotifications() {
+  document.getElementById('notifications-overlay').classList.remove('open');
+}
+
+function focusGlobalSearch() {
+  const searchInput = document.getElementById('global-search');
+  if (searchInput) {
+    searchInput.focus();
+    searchInput.select();
+  }
+}
+
+function openCalendar() {
+  navigateTo('schedule');
+}
+
 const VIEW_TITLES = {
   dashboard:'Dashboard', schedule:'Schedule', employees:'Employee',
   departments:'Projects', report:'Report', notes:'Notes', job:'Job', hiring:'Hiring'
@@ -2187,7 +2339,7 @@ function escapeHtml(str){
   return String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 }
 
-['form-overlay','detail-overlay','project-form-overlay','schedule-form-overlay','report-form-overlay','note-form-overlay','job-form-overlay','hiring-form-overlay'].forEach(id=>{
+['form-overlay','detail-overlay','project-form-overlay','schedule-form-overlay','report-form-overlay','note-form-overlay','job-form-overlay','hiring-form-overlay','help-overlay','feedback-overlay','notifications-overlay'].forEach(id=>{
   document.getElementById(id).addEventListener('click', ev=>{
     if(ev.target.id===id) {
       if (id==='form-overlay') closeDrawer();
@@ -2198,6 +2350,9 @@ function escapeHtml(str){
       else if (id==='note-form-overlay') closeNoteDrawer();
       else if (id==='job-form-overlay') closeJobDrawer();
       else if (id==='hiring-form-overlay') closeHiringDrawer();
+      else if (id==='help-overlay') closeHelp();
+      else if (id==='feedback-overlay') closeFeedback();
+      else if (id==='notifications-overlay') closeNotifications();
     }
   });
 });
