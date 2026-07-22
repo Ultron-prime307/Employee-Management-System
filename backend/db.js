@@ -5,7 +5,7 @@ async function connectMongo() {
   if (!uri) return false;
 
   try {
-    await mongoose.connect(uri);
+    await mongoose.connect(uri, { serverSelectionTimeoutMS: 3000 });
     console.log("MongoDB connected");
     return true;
   } catch (error) {
